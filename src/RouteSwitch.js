@@ -9,6 +9,18 @@ import data from "./data";
 export default function RouteSwitch() {
   const [cartItems, setCartItems] = useState([]);
 
+  let total = 0;
+
+  for (let item of cartItems) {
+    total += item.price * item.qty;
+  }
+
+  let cartLength = 0;
+
+  for (let item of cartItems) {
+    cartLength += item.qty;
+  }
+
   const { products } = data;
 
   function onAdd(product) {
@@ -38,7 +50,7 @@ export default function RouteSwitch() {
   }
   return (
     <BrowserRouter>
-      <Header />
+      <Header cartLength={cartLength} />
       <Routes>
         <Route path="/" element={<App />} />
         <Route
@@ -48,7 +60,12 @@ export default function RouteSwitch() {
         <Route
           path="/cart"
           element={
-            <Cart cartItems={cartItems} onAdd={onAdd} onRemove={onRemove} />
+            <Cart
+              cartItems={cartItems}
+              onAdd={onAdd}
+              onRemove={onRemove}
+              total={total}
+            />
           }
         />
       </Routes>

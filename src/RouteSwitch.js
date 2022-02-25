@@ -50,6 +50,7 @@ export default function RouteSwitch() {
           }
         }
       }
+      input.value = "";
     }
   }
 

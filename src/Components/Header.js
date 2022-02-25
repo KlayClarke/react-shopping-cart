@@ -8,7 +8,10 @@ export default function Header(props) {
           Home
         </Link>
       </div>
-      <div>
+      <div className="right">
+        <Link to={"/products"} className="header-link">
+          Products
+        </Link>
         <Link to={"/cart"} className="header-link">
           Cart
         </Link>

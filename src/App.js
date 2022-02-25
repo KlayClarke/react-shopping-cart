@@ -1,3 +1,7 @@
 export default function App() {
-  return <div>Home</div>;
+  return (
+    <div className="block">
+      <h2>Home</h2>
+    </div>
+  );
 }

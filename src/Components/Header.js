@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function Header(props) {
+  const { cartLength } = props;
   return (
     <header className="row center block">
       <div>
@@ -13,7 +14,7 @@ export default function Header(props) {
           Products
         </Link>
         <Link to={"/cart"} className="header-link">
-          Cart
+          {cartLength ? <>Cart [{cartLength}]</> : <>Cart </>}
         </Link>
       </div>
     </header>

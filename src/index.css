@@ -29,14 +29,6 @@ img.small {
   max-width: 8rem;
 }
 
-.header-link {
-  text-decoration: none;
-}
-
-.right .header-link {
-  margin: 1rem;
-}
-
 .row {
   display: flex;
   flex-direction: row;
@@ -60,4 +52,33 @@ img.small {
   padding: 1rem;
   margin: 0.5rem;
   border-radius: 0.5rem;
+}
+
+.header-link {
+  text-decoration: none;
+}
+
+.right .header-link {
+  margin: 1rem;
+}
+
+.product-name {
+  max-width: 8rem;
+}
+
+button.add {
+  background-color: greenyellow;
+  width: 1.5rem;
+}
+
+button.remove {
+  background-color: red;
+  width: 1.5rem;
+}
+
+button.badge {
+  background-color: red;
+  border: none;
+  color: white;
+  width: 1.5rem;
 }

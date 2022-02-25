@@ -1,8 +1,8 @@
 export default function Cart(props) {
-  const { cartItems, onAdd, onRemove, total } = props;
+  const { cartItems, onAdd, onRemove, onCheckout, total } = props;
 
   return (
-    <aside className="block col-1">
+    <div className="block col-1">
       <h1>Subtotal: ${total.toFixed(2)}</h1>
       <h2>Cart Items</h2>
       <div>
@@ -28,6 +28,9 @@ export default function Cart(props) {
           </div>
         </div>
       ))}
-    </aside>
+      {cartItems.length > 0 && (
+        <button onClick={onCheckout}>Continue Checkout</button>
+      )}
+    </div>
   );
 }

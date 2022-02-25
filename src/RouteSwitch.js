@@ -22,49 +22,57 @@ export default function RouteSwitch() {
 
   function onAdd(product) {
     const exist = cartItems.find((x) => x.id === product.id);
-    for (let input of document.querySelectorAll("input[type='number']")) {
-      if (input.id == product.id) {
-        let desiredQty = parseInt(input.value);
-        if (isNaN(desiredQty)) {
-          return null;
-        } else {
-          if (exist) {
-            setCartItems(
-              cartItems.map((x) =>
-                x.id === product.id
-                  ? {
-                      ...exist,
-                      qty: exist.qty + desiredQty,
-                    }
-                  : x
-              )
-            );
-          } else {
-            setCartItems([
-              ...cartItems,
-              {
-                ...product,
-                qty: desiredQty,
-              },
-            ]);
-          }
+    let desiredQty;
+    if (document.querySelectorAll("input[type='number']")) {
+      for (let input of document.querySelectorAll("input[type='number']")) {
+        if (input.id == product.id) {
+          desiredQty = parseInt(input.value);
+          input.value = "";
         }
       }
-      input.value = "";
+    }
+    if (exist) {
+      setCartItems(
+        cartItems.map((x) =>
+          x.id == product.id
+            ? {
+                ...exist,
+                qty: exist.qty + (desiredQty || 1),
+              }
+            : x
+        )
+      );
+    } else {
+      setCartItems([
+        ...cartItems,
+        {
+          ...product,
+          qty: desiredQty || 1,
+        },
+      ]);
     }
   }
 
   function onRemove(product) {
-    const exist = cartItems.find((x) => x.id === product.id);
+    const exist = cartItems.find((x) => x.id == product.id);
     if (exist.qty === 1) {
       setCartItems(cartItems.filter((x) => x.id !== product.id));
     } else if (exist) {
       setCartItems(
         cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty - 1 } : x
+          x.id == product.id ? { ...exist, qty: exist.qty - 1 } : x
         )
       );
     }
+  }
+
+  function onCheckout() {
+    alert(
+      `Invoice: ${cartItems.map(
+        (item) => `\n${item.name} - $${item.price} x ${item.qty}`
+      )}\nTotal: $${total.toFixed(2)}`
+    );
+    setCartItems([]);
   }
 
   return (
@@ -83,6 +91,7 @@ export default function RouteSwitch() {
               cartItems={cartItems}
               onAdd={onAdd}
               onRemove={onRemove}
+              onCheckout={onCheckout}
               total={total}
             />
           }

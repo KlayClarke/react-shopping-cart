@@ -8,31 +8,48 @@ import data from "./data";
 
 export default function RouteSwitch() {
   const [cartItems, setCartItems] = useState([]);
+  const { products } = data;
 
   let total = 0;
+  let cartLength = 0;
 
   for (let item of cartItems) {
     total += item.price * item.qty;
   }
-
-  let cartLength = 0;
-
   for (let item of cartItems) {
     cartLength += item.qty;
   }
 
-  const { products } = data;
-
   function onAdd(product) {
     const exist = cartItems.find((x) => x.id === product.id);
-    if (exist) {
-      setCartItems(
-        cartItems.map((x) =>
-          x.id === product.id ? { ...exist, qty: exist.qty + 1 } : x
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, qty: 1 }]);
+    for (let input of document.querySelectorAll("input[type='number']")) {
+      if (input.id == product.id) {
+        let desiredQty = parseInt(input.value);
+        if (isNaN(desiredQty)) {
+          return null;
+        } else {
+          if (exist) {
+            setCartItems(
+              cartItems.map((x) =>
+                x.id === product.id
+                  ? {
+                      ...exist,
+                      qty: exist.qty + desiredQty,
+                    }
+                  : x
+              )
+            );
+          } else {
+            setCartItems([
+              ...cartItems,
+              {
+                ...product,
+                qty: desiredQty,
+              },
+            ]);
+          }
+        }
+      }
     }
   }
 
@@ -48,6 +65,7 @@ export default function RouteSwitch() {
       );
     }
   }
+
   return (
     <BrowserRouter>
       <Header cartLength={cartLength} />

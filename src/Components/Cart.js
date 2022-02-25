@@ -1,10 +1,6 @@
 export default function Cart(props) {
-  const { cartItems, onAdd, onRemove } = props;
-  let total = 0;
+  const { cartItems, onAdd, onRemove, total } = props;
 
-  for (let item of cartItems) {
-    total += item.price * item.qty;
-  }
   return (
     <aside className="block col-1">
       <h1>Subtotal: ${total}</h1>

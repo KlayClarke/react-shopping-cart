@@ -3,7 +3,7 @@ export default function Cart(props) {
 
   return (
     <aside className="block col-1">
-      <h1>Subtotal: ${total}</h1>
+      <h1>Subtotal: ${total.toFixed(2)}</h1>
       <h2>Cart Items</h2>
       <div>
         {cartItems.length === 0 && (
